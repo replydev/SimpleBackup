@@ -5,11 +5,10 @@ import me.replydev.simplebackup.zip.ZipHashUtils;
 import java.io.File;
 import java.util.Vector;
 
-public class FileTree {
-    private final Vector<HashFile> files;
+public class FileTree extends Vector<HashFile>{
 
     public FileTree(String backupFolder){
-        files = new Vector<>();
+        super();
         File[] backups = new File(backupFolder).listFiles();
         if(backups == null){
             return;
@@ -17,34 +16,18 @@ public class FileTree {
         int i = 1;
         for(File f : backups){
             System.out.print("Calculating hash of " + i + "° backup...");
-            files.add(new HashFile(ZipHashUtils.getZipHash(f.getAbsolutePath()),f));
+            this.add(new HashFile(ZipHashUtils.getZipHash(f.getAbsolutePath()),f));
             System.out.println("...done");
             i++;
         }
     }
 
     public boolean exists(long CRC){
-        for(HashFile hashFile : files){
+        for(HashFile hashFile : this){
             if(CRC == hashFile.getHash()){
                 return true;
             }
         }
         return false;
-    }
-
-    public int length(){
-        return files.size();
-    }
-
-    public HashFile firstElement(){
-        return files.firstElement();
-    }
-
-    public HashFile get(int index){
-        return files.get(index);
-    }
-
-    public void add(HashFile hashFile){
-        files.add(hashFile);
     }
 }

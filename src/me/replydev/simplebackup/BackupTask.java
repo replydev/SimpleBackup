@@ -52,12 +52,12 @@ public class BackupTask implements Runnable {
     }
 
     private void checkBackups() throws IOException { //count if we got >10 backups, if so delete the oldest one
-        if(fileTree.length() < c.getMax_backups_to_store()){
+        if(fileTree.size() < c.getMax_backups_to_store()){
             return;
         }
         File oldestFile = fileTree.firstElement().getF();
 
-        for(int i = 1; i < fileTree.length(); i++){
+        for(int i = 1; i < fileTree.size(); i++){
             if(getFileCreationDate(oldestFile).compareTo(getFileCreationDate(fileTree.get(i).getF())) > 0){
                 oldestFile = fileTree.get(i).getF();
             }
