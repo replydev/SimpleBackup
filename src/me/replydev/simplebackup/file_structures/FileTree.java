@@ -43,4 +43,8 @@ public class FileTree {
     public HashFile get(int index){
         return files.get(index);
     }
+
+    public void add(HashFile hashFile){
+        files.add(hashFile);
+    }
 }

@@ -1,6 +1,7 @@
 package me.replydev.simplebackup;
 
 import me.replydev.simplebackup.file_structures.FileTree;
+import me.replydev.simplebackup.file_structures.HashFile;
 import me.replydev.simplebackup.zip.Zip;
 import me.replydev.simplebackup.zip.ZipHashUtils;
 
@@ -34,12 +35,16 @@ public class BackupTask implements Runnable {
             checkBackups();
             zipInstance.run(c.getFolder_to_backup(),filePath);
             long newFileHash = ZipHashUtils.getZipHash(filePath);
+            File f = new File(filePath);
             if(fileTree.exists(newFileHash)){
                 System.out.println("Found a duplicated backup(\"" + filePath + "\"), removal in progress.");
-                File f = new File(filePath);
                 if(!f.delete()){
                     System.err.println("Error during file removal.");
                 }
+            }
+            else{
+                System.out.println("Backup done: " + filePath + " - " + newFileHash);
+                fileTree.add(new HashFile(newFileHash,f));
             }
         } catch (IOException e) {
             e.printStackTrace();
