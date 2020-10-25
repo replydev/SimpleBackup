@@ -26,7 +26,7 @@ public class Main {
         }
         FileTree fileTree = new FileTree(c.getFolder_to_store_backups());
         System.out.println("Starting scheduled executor...");
-        scheduledExecutorService.scheduleAtFixedRate(new BackupTask(c,fileTree),c.getInitial_delay_backup(),c.getBackup_frequency(), TimeUnit.HOURS);
+        scheduledExecutorService.scheduleAtFixedRate(new BackupTask(c,fileTree),c.getInitial_delay_backup(),c.getBackup_frequency(), c.getBackup_frequency_unit());
     }
 
     private static String getLogo(){
