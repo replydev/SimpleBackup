@@ -13,6 +13,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         System.out.println(getLogo());
+        System.out.println(getVersion());
         Config c = new Config("config.conf");
         System.out.println("Config loaded.");
         System.out.println("Checking backup folder...");
@@ -36,6 +37,10 @@ public class Main {
                 "  ____) | | | | | | | |_) | |  __/ | |_) | (_| | (__|   <| |_| | |_) |\n" +
                 " |_____/|_|_| |_| |_| .__/|_|\\___| |____/ \\__,_|\\___|_|\\_\\\\__,_| .__/ \n" +
                 "                    | |                                        | |    \n" +
-                "                    |_|                                        |_|    \n\n";
+                "                    |_|                                        |_|    ";
+    }
+
+    private static String getVersion(){
+        return "Version " + Info.VERSION + "\n";
     }
 }
