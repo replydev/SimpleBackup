@@ -51,15 +51,16 @@ public class BackupTask implements Runnable {
         }
     }
 
-    private void checkBackups() throws IOException { //count if we got >10 backups, if so delete the oldest one
+    private void checkBackups() throws IOException { //count if we got >= x backups, if so delete the oldest one
         if(fileTree.size() < c.getMax_backups_to_store()){
             return;
         }
         File oldestFile = fileTree.firstElement().getF();
-
+        int oldestFileIndex = 0;
         for(int i = 1; i < fileTree.size(); i++){
             if(getFileCreationDate(oldestFile).compareTo(getFileCreationDate(fileTree.get(i).getF())) > 0){
                 oldestFile = fileTree.get(i).getF();
+                oldestFileIndex = i;
             }
         }
         if(!oldestFile.delete()){
@@ -67,6 +68,7 @@ public class BackupTask implements Runnable {
         }
         else{
             System.out.println("We got too much backups, so i deleted the oldest one.");
+            fileTree.remove(oldestFileIndex);
         }
     }
 
