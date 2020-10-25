@@ -22,7 +22,7 @@ public class BackupTask implements Runnable {
 
     public BackupTask(Config c,FileTree fileTree){
         this.c = c;
-        this.folder_to_store_backup = c.getFolder_to_store_backups().endsWith("/") ? c.getFolder_to_store_backups() : c.getFolder_to_store_backups() + '/';
+        this.folder_to_store_backup = c.getFolderToStoreBackups().endsWith("/") ? c.getFolderToStoreBackups() : c.getFolderToStoreBackups() + '/';
         this.zipInstance = new Zip();
         this.fileTree = fileTree;
     }
@@ -33,7 +33,7 @@ public class BackupTask implements Runnable {
         String filePath = folder_to_store_backup + currentTime + ".zip";
         try {
             checkBackups();
-            zipInstance.run(c.getFolder_to_backup(),filePath);
+            zipInstance.run(c.getFolderToBackup(),filePath);
             long newFileHash = ZipHashUtils.getZipHash(filePath);
             File f = new File(filePath);
             if(fileTree.exists(newFileHash)){
@@ -52,7 +52,7 @@ public class BackupTask implements Runnable {
     }
 
     private void checkBackups() throws IOException { //count if we got >= x backups, if so delete the oldest one
-        if(fileTree.size() < c.getMax_backups_to_store()){
+        if(fileTree.size() < c.getMaxBackupsToStore()){
             return;
         }
         File oldestFile = fileTree.firstElement().getF();

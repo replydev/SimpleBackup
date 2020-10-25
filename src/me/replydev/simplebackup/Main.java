@@ -5,7 +5,6 @@ import me.replydev.simplebackup.file_structures.FileTree;
 import java.io.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -17,16 +16,16 @@ public class Main {
         Config c = new Config("config.conf");
         System.out.println("Config loaded.");
         System.out.println("Checking backup folder...");
-        File backupFolder = new File(c.getFolder_to_store_backups());
+        File backupFolder = new File(c.getFolderToStoreBackups());
         if(!backupFolder.exists()){
             if(!backupFolder.mkdir()){
                 System.err.println("Error during server backup folder creation");
                 System.exit(-1);
             }
         }
-        FileTree fileTree = new FileTree(c.getFolder_to_store_backups());
+        FileTree fileTree = new FileTree(c.getFolderToStoreBackups());
         System.out.println("Starting scheduled executor...");
-        scheduledExecutorService.scheduleAtFixedRate(new BackupTask(c,fileTree),c.getInitial_delay_backup(),c.getBackup_frequency(), c.getBackup_frequency_unit());
+        scheduledExecutorService.scheduleAtFixedRate(new BackupTask(c,fileTree),c.getInitialBackupDelay(),c.getBackupFrequency(), c.getBackupFrequencyUnit());
     }
 
     private static String getLogo(){
