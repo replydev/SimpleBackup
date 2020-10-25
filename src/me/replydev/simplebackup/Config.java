@@ -84,7 +84,7 @@ public class Config {
     private void parseBackupFrequency(String s){
         String[] data = s.split(",");
         if(data.length != 2){
-            System.err.println("Error during config parsing: \"" + data[1] + "\" is not a valid backup frequency (it should be similar to \"2,HOURS\"). Fix the config and retry.");
+            System.err.println("Error during config parsing: \"" + s + "\" is not a valid backup frequency (it should be similar to \"2,HOURS\"). Fix the config and retry.");
             System.exit(-1);
         }
         backupFrequency = Integer.parseInt(data[0]);
