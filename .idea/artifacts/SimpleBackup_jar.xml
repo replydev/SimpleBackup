@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SimpleBackup:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SimpleBackup_jar</output-path>
+    <root id="archive" name="SimpleBackup.jar">
+      <element id="module-output" name="SimpleBackup" />
+    </root>
+  </artifact>
+</component>
