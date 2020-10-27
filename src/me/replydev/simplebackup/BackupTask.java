@@ -33,7 +33,7 @@ public class BackupTask implements Runnable {
         String filePath = folder_to_store_backup + currentTime + ".zip";
         try {
             checkBackups();
-            zipInstance.run(c.getFolderToBackup(),filePath);
+            zipInstance.run(c.getFoldersToBackup(),filePath);
             long newFileHash = ZipHashUtils.getZipHash(filePath);
             File f = new File(filePath);
             if(fileTree.exists(newFileHash)){

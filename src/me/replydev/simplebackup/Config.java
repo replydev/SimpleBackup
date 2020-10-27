@@ -1,11 +1,13 @@
 package me.replydev.simplebackup;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 public class Config {
 
-    private String folderToBackup;
+    private Vector<String> foldersToBackup;
     private String folderToStoreBackups;
     private int initialBackupDelay;
     private int backupFrequency;
@@ -23,9 +25,8 @@ public class Config {
     public TimeUnit getBackupFrequencyUnit() {
         return backupFrequencyUnit;
     }
-
-    public String getFolderToBackup() {
-        return folderToBackup;
+    public Vector<String> getFoldersToBackup() {
+        return foldersToBackup;
     }
 
     public String getFolderToStoreBackups() {
@@ -60,8 +61,8 @@ public class Config {
             System.exit(-1);
         }
         switch(data[0]){
-            case "FOLDER_TO_BACKUP":
-                folderToBackup = data[1];
+            case "FOLDERS_TO_BACKUP":
+                parseFoldersToBackup(data[1]);
                 break;
             case "FOLDER_TO_STORE_BACKUPS":
                 folderToStoreBackups = data[1];
@@ -79,6 +80,12 @@ public class Config {
                 System.err.println("Error during config parsing: \"" + data[0] + "\" is not a config attribute. Fix the config and retry.");
                 System.exit(-1);
         }
+    }
+
+    private void parseFoldersToBackup(String s){
+        String[] folders = s.split(",");
+        this.foldersToBackup = new Vector<>();
+        this.foldersToBackup.addAll(Arrays.asList(folders));
     }
 
     private void parseBackupFrequency(String s){
