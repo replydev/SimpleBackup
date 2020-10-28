@@ -17,33 +17,45 @@ public class Config {
     public int getInitialBackupDelay() {
         return initialBackupDelay;
     }
-
     public int getBackupFrequency() {
         return backupFrequency;
     }
-
     public TimeUnit getBackupFrequencyUnit() {
         return backupFrequencyUnit;
     }
     public Vector<String> getFoldersToBackup() {
         return foldersToBackup;
     }
-
     public String getFolderToStoreBackups() {
         return folderToStoreBackups;
     }
-
     public int getMaxBackupsToStore() {
         return maxBackupsToStore;
     }
 
     public Config(String filename) throws IOException {
+        //default values
+        initialBackupDelay = 0;
+        backupFrequency = 2;
+        backupFrequencyUnit = TimeUnit.HOURS;
+        maxBackupsToStore = 5;
+
         BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
         String s;
         while((s = reader.readLine()) != null){
             parseLine(s);
         }
         reader.close();
+
+        //
+        if(foldersToBackup == null){
+            System.err.println("Error during config parsing: please insert a valid \"FOLDERS_TO_BACKUPS\" attribute. Fix the config and retry.");
+            System.exit(-1);
+        }
+        if(folderToStoreBackups == null){
+            System.err.println("Error during config parsing: please insert a valid \"FOLDER_TO_STORE_BACKUPS\" attribute. Fix the config and retry.");
+            System.exit(-1);
+        }
     }
 
     private void parseLine(String line){
