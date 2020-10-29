@@ -5,7 +5,7 @@ This simple backup utility can create zip file of a given directory, checking fo
 ## Installation
 The only thing you need to do is to download the jar and write your configuration, similar to the following:
 
-FOLDER_TO_BACKUP = src\
+FOLDERS_TO_BACKUP = folder1,folder2\
 FOLDER_TO_STORE_BACKUPS = backups/\
 INITIAL_BACKUP_DELAY = 0\
 BACKUP_FREQUENCY = 10,SECONDS\
